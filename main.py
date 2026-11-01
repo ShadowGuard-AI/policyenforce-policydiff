@@ -44,6 +44,9 @@ def load_policy(policy_file):
     """
     try:
         with open(policy_file, 'r') as f:
+            # The extension picks the parser, and the test is case
+            # sensitive: a file named POLICY.JSON is refused as an
+            # unsupported format even though its contents are fine.
             if policy_file.endswith('.json'):
                 data = json.load(f)
             elif policy_file.endswith(('.yaml', '.yml')):
@@ -125,6 +128,10 @@ def print_diff(diff, output_format="json"):
     if diff:
         try:
             if output_format == "json":
+                # A YAML policy can carry values JSON cannot print:
+                # an unquoted date loads as a datetime.date, and dumps
+                # then raises TypeError. The diff was computed fine and
+                # the run still exits 1 from main, with no output.
                 print(json.dumps(diff, indent=4))
             elif output_format == "yaml":
                 print(yaml.dump(diff, indent=2))
@@ -155,6 +162,10 @@ def main():
         if diff:
             print_diff(diff, args.format)
         else:
+            # Identical policies print nothing to stdout at all: this
+            # line goes to the log stream. A script reading stdout
+            # sees an empty success and cannot tell identical apart
+            # from a run that produced nothing for another reason.
             logging.info("Policies are identical.")
 
     except FileNotFoundError:
