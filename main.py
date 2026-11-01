@@ -45,11 +45,14 @@ def load_policy(policy_file):
     try:
         with open(policy_file, 'r') as f:
             if policy_file.endswith('.json'):
-                return json.load(f)
+                data = json.load(f)
             elif policy_file.endswith(('.yaml', '.yml')):
-                return yaml.safe_load(f)
+                data = yaml.safe_load(f)
             else:
                 raise ValueError("Unsupported file format. Use JSON or YAML.")
+        if data is None or not isinstance(data, dict):
+            raise ValueError(f"Policy file did not load as a policy mapping: {policy_file}")
+        return data
     except FileNotFoundError:
         logging.error(f"Policy file not found: {policy_file}")
         raise

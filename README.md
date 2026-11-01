@@ -5,11 +5,17 @@ A command-line tool that compares two security policies (e.g., represented as JS
 `git clone https://github.com/ShadowStrikeHQ/policyenforce-policydiff`
 
 ## Usage
-`./policyenforce-policydiff [params]`
+`python3 main.py policy_file1 policy_file2 [--format json|yaml] [--schema SCHEMA]`
+
+Example: `python3 main.py policy_a.yaml policy_b.yaml --format yaml`
+
+A policy file that is empty, or that does not load as a mapping of policy keys, is rejected with an error and exit code 1. It is never compared as if it were a policy.
 
 ## Parameters
+- `policy_file1`: Path to the first security policy file (JSON or YAML). Required positional argument.
+- `policy_file2`: Path to the second security policy file (JSON or YAML). Required positional argument.
 - `-h`: Show help message and exit
-- `--format`: No description provided
+- `--format`: Output format, json or yaml. Defaults to json.
 - `--schema`: Path to the JSON schema file for validating policies.
 
 ## License
