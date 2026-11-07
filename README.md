@@ -2,7 +2,7 @@
 A command-line tool that compares two security policies (e.g., represented as JSON or YAML files) and highlights the differences, particularly focusing on permissions, allowed actions, and resource constraints.  Uses `jsondiffpatch` for efficient comparison. - Focused on Provides tools to programmatically enforce security policies across systems, such as verifying configuration files against a predefined schema and reporting deviations.
 
 ## Install
-`git clone https://github.com/ShadowStrikeHQ/policyenforce-policydiff`
+`git clone https://github.com/ShadowGuard-AI/policyenforce-policydiff`
 
 ## Usage
 `python3 main.py policy_file1 policy_file2 [--format json|yaml] [--schema SCHEMA]`
@@ -19,4 +19,4 @@ A policy file that is empty, or that does not load as a mapping of policy keys, 
 - `--schema`: Path to the JSON schema file for validating policies.
 
 ## License
-Copyright (c) ShadowStrikeHQ
+MIT License. See LICENSE.
